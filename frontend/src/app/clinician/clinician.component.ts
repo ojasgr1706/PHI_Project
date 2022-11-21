@@ -15,6 +15,8 @@ export class ClinicianComponent implements OnInit {
   show_patients: boolean = false;
   file: File|null = null;
 
+  Object = Object;
+
   patients: any;
 
   // Inject service 
@@ -55,11 +57,15 @@ export class ClinicianComponent implements OnInit {
     // console.log("service running");
     this.apiService.patientData().subscribe((data)=>{
       // console.log(data);
-      console.log(data);
       this.patients = data;
+      console.log(this.patients);
     }), (error:any)=>{
       console.log("Error is ", error);
     }
+  }
+
+  dateFormat(date: string){
+    return date.split("T")[0];
   }
 
 }

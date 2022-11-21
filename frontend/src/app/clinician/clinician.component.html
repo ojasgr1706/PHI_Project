@@ -22,8 +22,8 @@
     <div>
         <h3>Patients</h3>
         <ul>
-            <li *ngFor="let patient of patients">
-                {{patient[0]}}
+            <li *ngFor="let key of Object.keys(patients)">
+                Patient ID : {{patients[key].patient_id}} &emsp; Name : {{patients[key].name}} &emsp; Date of Birth : {{dateFormat(patients[key].dob)}} &emsp; Weight : {{patients[key].weight}} &emsp; Height : {{patients[key].height}}
             </li>
         </ul>
     </div>
