@@ -1,23 +1,32 @@
 <div class="text-center">
-    <input class="form-control" type="file" 
-            (change)="onChange($event)">
-  
-    <button (click)="onUpload()" 
-        class="btn btn-success">
+    <input class="form-control" type="file" (change)="onChange($event)">
+
+    <button (click)="onUpload()" class="btn btn-success">
         Upload
     </button>
 </div>
-  
+
 <!-- Shareable short link of  uploaded file -->
-<div class="container text-center jumbotron" 
-    *ngIf="shortLink">
+<div class="container text-center jumbotron" *ngIf="short_link">
     <h2> Visit Here</h2>
-    <a href="{{shortLink}}">{{shortLink}}</a>
+    <a href="{{short_link}}">{{short_link}}</a>
 </div>
-  
+
 <!--Flag variable is used here-->
 <div class="container" *ngIf="loading">
     <h3>Loading ...</h3>
 </div>
-<!-- 
-<button (click)="()" class="btn btn-success">Upload</button> -->
+
+<button (click)="togglePatients()">Show Patients</button>
+<div *ngIf="show_patients">
+    <div>
+        <h3>Patients</h3>
+        <ul>
+            <li *ngFor="let patient of patients">
+                {{patient[0]}}
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- <button (click)="()" class="btn btn-success">Upload</button> -->

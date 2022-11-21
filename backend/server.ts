@@ -1,10 +1,9 @@
-import express from 'express'
-import {Client} from 'pg'
-
-// const express = require('express')
-// const { Client } = require('pg')
+const express = require('express');
+const { Client } = require('pg');
+const cors = require('cors');
 
 const app = express();
+app.use(express.urlencoded({extended: true}), express.json(), cors())
 
 const client = new Client({
 	host: 'localhost',
@@ -18,23 +17,27 @@ client.connect().then();
 
 app.get('/patientData', (req, res) => {
 
-	client.query('SELECT * FROM patients', (err, res) => {
+	client.query('SELECT * FROM patients', (req,result) => {
 		
+		console.log(result.rows);
 		const ret: Record<number, {name: string, dob: Date, phone_num: number, addr: string, weight: number, height: number, chicken_pox: boolean, measles: boolean, hepatitis_b: boolean}> = {}
-		for(let i = 0; i < res.rows.length; i++) {
+		for(let i = 0; i < result.rows.length; i++) {
 			ret[i] = {
-				name: res.rows[i].name,
-				dob: res.rows[i].dob,
-				phone_num: res.rows[i].phone_num,
-				addr: res.rows[i].addr,
-				weight: res.rows[i].weight,
-				height: res.rows[i].height,
-				chicken_pox: res.rows[i].chicken_pox,
-				measles: res.rows[i].measles,
-				hepatitis_b: res.rows[i].hepatitis_b
+				name: result.rows[i].name,
+				dob: result.rows[i].dob,
+				phone_num: result.rows[i].phone_number,
+				addr: result.rows[i].address,
+				weight: result.rows[i].weight,
+				height: result.rows[i].height,
+				chicken_pox: result.rows[i].chicken_pox,
+				measles: result.rows[i].measles,
+				hepatitis_b: result.rows[i].hepatitis_b
 			}
 		}
-		res.send(ret);
+		res.send(ret)
+	}), (error:any) => {
+		console.log("Error is ", error);
+	}
 
 		
 		// console.log(ret);
@@ -43,7 +46,6 @@ app.get('/patientData', (req, res) => {
 		// } else {
 		// 	console.log(err);
 		// }
-	})
 
 		// res.json({
 		//   message: 'Hello from server!',
@@ -52,8 +54,8 @@ app.get('/patientData', (req, res) => {
 })
 	
 
-app.listen(3000, (req, res) => {
-	console.log('Listening on port 3000');
+app.listen(3000, () => {
+	console.log('Server listening on port 3000');
 })
 
 // let date = new Date();

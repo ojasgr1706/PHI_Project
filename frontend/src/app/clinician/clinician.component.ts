@@ -10,23 +10,28 @@ import { ApiService } from '../api.service';
 })
 export class ClinicianComponent implements OnInit {
 
-  shortLink: string = "";
+  short_link: string = "";
   loading: boolean = false; // Flag variable
-  // initialize variable file of type File as empty
-  // file: File;
+  show_patients: boolean = false;
   file: File|null = null;
 
+  patients: any;
 
   // Inject service 
   constructor(private fileUploadService: FileUploadService, private apiService: ApiService){
   }
 
   ngOnInit(): void {
+    this.display_patient_data();
   }
 
   // On file Select
   onChange(event: any) {
     this.file = event.target.files[0];
+  }
+
+  togglePatients(){
+    this.show_patients = !this.show_patients;
   }
 
   // OnClick of button Upload
@@ -38,7 +43,7 @@ export class ClinicianComponent implements OnInit {
         if (typeof (event) === 'object') {
 
           // Short link via api response
-          this.shortLink = event.link;
+          this.short_link = event.link;
 
           this.loading = false; // Flag variable 
         }
@@ -47,11 +52,13 @@ export class ClinicianComponent implements OnInit {
   }
 
   display_patient_data(){
-    this.apiService.patientData().subscribe((data: any)=>{
+    // console.log("service running");
+    this.apiService.patientData().subscribe((data)=>{
       // console.log(data);
       console.log(data);
-    }), (error: string)=>{
-      console.log("nahi aya");
+      this.patients = data;
+    }), (error:any)=>{
+      console.log("Error is ", error);
     }
   }
 
