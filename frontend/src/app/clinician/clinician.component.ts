@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploadService } from '../file-upload.service';
+import { ApiService } from '../api.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class ClinicianComponent implements OnInit {
 
 
   // Inject service 
-  constructor(private fileUploadService: FileUploadService) {
+  constructor(private fileUploadService: FileUploadService, private apiService: ApiService){
   }
 
   ngOnInit(): void {
@@ -43,6 +44,15 @@ export class ClinicianComponent implements OnInit {
         }
       }
     );
+  }
+
+  display_patient_data(){
+    this.apiService.patientData().subscribe((data: any)=>{
+      // console.log(data);
+      console.log(data);
+    }), (error: string)=>{
+      console.log("nahi aya");
+    }
   }
 
 }
