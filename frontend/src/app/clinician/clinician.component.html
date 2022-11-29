@@ -1,12 +1,4 @@
-<div class="text-center">
-    <input class="form-control" type="file" (change)="onChange($event)">
-
-    <button (click)="onUpload()" class="btn btn-success">
-        Upload
-    </button>
-</div>
-
-<!-- Shareable short link of  uploaded file -->
+<h2>CLINICIAN PAGE</h2>
 <div class="container text-center jumbotron" *ngIf="short_link">
     <h2> Visit Here</h2>
     <a href="{{short_link}}">{{short_link}}</a>
@@ -17,13 +9,88 @@
     <h3>Loading ...</h3>
 </div>
 
-<button (click)="togglePatients()">Show Patients</button>
+<button (click)="togglePatients()">SHOW PATIENTS</button>
 <div *ngIf="show_patients">
     <div>
-        <h3>Patients</h3>
+        <h3>PATIENTS</h3>
         <ul>
             <li *ngFor="let key of Object.keys(patients)">
-                Patient ID : {{patients[key].patient_id}} &emsp; Name : {{patients[key].name}} &emsp; Date of Birth : {{dateFormat(patients[key].dob)}} &emsp; Weight : {{patients[key].weight}} &emsp; Height : {{patients[key].height}}
+                Patient ID : {{patients[key].patient_id}} &nbsp;&nbsp;&emsp; Name : {{patients[key].name}} &nbsp;&nbsp;&emsp; Date of Birth : {{dateFormat(patients[key].dob)}} &nbsp;&nbsp;&emsp; Weight : {{patients[key].weight}} &nbsp;&nbsp;&emsp; Height : {{patients[key].height}}
+            </li>
+        </ul>
+    </div>
+    <button (click)="toggleAddPatients()">ADD PATIENTS</button>
+    <div *ngIf="show_add_patients">
+        <!-- <div> -->
+            <!-- <h3>Add Patients</h3> -->
+            <!-- <form> -->
+
+        <form #patientData="ngForm" (ngSubmit) = "addPatient(patientData.value)">
+
+            <div class="form-group">
+                <label for="patient_id">Patient ID</label>
+                <input required ngModel #patientID="ngModel" name="patient_id" type="number" class="form-control" id="patient_id" placeholder="Enter Patient ID">
+            </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input required ngModel #Name="ngModel" name="nam" type="text" class="form-control" id="name" placeholder="Enter Name">
+            </div>
+            
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input required ngModel #DOB="ngModel" name="dob" type="date" class="form-control" id="dob" placeholder="Enter Date of Birth">
+            </div>
+            <div class="form-group">
+                <label for="phone_num">Phone Number</label>
+                <!-- <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"> -->
+                <input required ngModel #phoneNum="ngModel" name="phone_num" type="tel" class="form-control" id="patient_id" placeholder="Enter Phone Number" pattern="[0-9]{10}">
+            </div>
+            <div class="form-group">
+                <label for="Address">Address</label>
+                <input required ngModel #Addr="ngModel" name="addr" type="text" class="form-control" id="Address" placeholder="Enter Address">
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight</label>
+                <input required ngModel #Weight="ngModel" name="weight" type="number" class="form-control" id="weight" placeholder="Enter Weight">
+            </div>
+            <div class="form-group">
+                <label for="height">Height</label>
+                <input required ngModel #Height="ngModel" name="height" type="number" class="form-control" id="height" placeholder="Enter Height">
+            </div>
+            <div class="form-group">
+                <label for="chpox">Checked for Chicken Pox</label>
+                <input required ngModel #ChPox="ngModel" name="chicken_pox" type="checkbox" class="form-control" id="chpox">
+            </div>
+            <div class="form-group">
+                <label for="measles">Checked for Measles</label>
+                <input required ngModel #Measles="ngModel" name="measles" type="checkbox" class="form-control" id="measles">
+            </div>
+            <div class="form-group">
+                <label for="hepab">Checked for Hepatitis B</label>
+                <input required ngModel #HepaB="ngModel" name="hepatitis_b" type="checkbox" class="form-control" id="hepab">
+            </div>
+            <button class="btn btn-success">SUBMIT</button>
+            
+        </form>
+        
+        <!-- <div *ngIf="show_patient">
+            <h3>Added Patient</h3>
+            {{patient_info.patient_id}} &nbsp;&nbsp;&emsp; {{patient_info.nam}} &nbsp;&nbsp;&emsp; {{dateFormat(patient_info.dob.toDateString())}} &nbsp;&nbsp;&emsp; {{patient_info.phone_num}} &nbsp;&nbsp;&emsp; {{patient_info.addr}} &nbsp;&nbsp;&emsp; {{patient_info.weight}} &nbsp;&nbsp;&emsp; {{patient_info.height}} &nbsp;&nbsp;&emsp; {{patient_info.chicken_pox}} &nbsp;&nbsp;&emsp; {{patient_info.measles}} &nbsp;&nbsp;&emsp; {{patient_info.hepatitis_b}}
+        </div> -->
+    </div>
+</div>
+
+<br><br>
+
+<button (click)="toggleVendors()">SHOW VENDORS</button>
+<div *ngIf="show_vendors">
+    <div>
+        <h3>Vendors</h3>
+        <ul>
+            <li *ngFor="let key of Object.keys(vendors)">
+                Patient ID : {{vendors[key].vendor_id}} &nbsp;&nbsp;&emsp; Name : {{vendors[key].name}} &nbsp;&nbsp;&emsp; Phone Number : {{vendors[key].phone_num}} &nbsp;&nbsp;&emsp; Address : {{vendors[key].address}}
+                <br><br>
+                <input class="form-control" type="file" (change)="onChange($event,vendors[key].vendor_id,0)"><button (click)="onUpload()" class="btn btn-success">Upload</button>
             </li>
         </ul>
     </div>

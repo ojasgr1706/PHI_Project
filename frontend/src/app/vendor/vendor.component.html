@@ -1,0 +1,13 @@
+<h2>VENDOR PAGE</h2>
+<button (click)="show_files = !show_files">SHOW FILES</button>
+<div *ngIf="show_files">
+    <div>
+        <h3>FILES</h3>
+        <ul>
+            <li *ngFor="let key of Object.keys(files)">
+                <!-- {{files[key]}} -->
+                Clinician ID : {{files[key].clinician_id}} &nbsp;&nbsp;&emsp; Name : {{filename(files[key].file_path)}} &nbsp;&nbsp;&emsp;
+                <button (click)="download(filename(files[key].file_path))">DOWNLOAD</button> </li>
+        </ul>
+    </div>
+<!-- </div>/home/ojas/Desktop/sem7/dh302/project/PHI_Project/backend/uploads/resume.pdf -->

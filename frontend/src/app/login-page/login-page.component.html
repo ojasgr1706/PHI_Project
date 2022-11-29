@@ -6,10 +6,10 @@
         <legend>Please select your Affiliation</legend>
         <div>
             <label for="choice1">Clinician</label>
-            <input type="radio" id="choice1" name="affiliation" value="clinician" />
+            <input [(ngModel)]="profession" value="i" type="radio" id="choice1" name="affiliation" value="/clinician"/>
 
             <label for="choice2">Vendor</label>
-            <input type="radio" id="choice2" name="affiliation" value="vendor" />
+            <input [(ngModel)]="profession" type="radio" id="choice2" name="affiliation" value="/vendor" />
 
             <!-- <label for="choice3">Manager</label>
             <input type="radio" id="choice3" name="affiliation" value="manager"/>
@@ -23,7 +23,7 @@
         <!-- <div>
             <button type="submit">Submit</button>
         </div> -->
-    </fieldset>
+    </fieldset> 
 
     <div class="form-group">
         <label for="userId">User Id</label>
@@ -33,7 +33,7 @@
         <label for="password">Password</label>
         <input id="password" type="password" class="form-control">
     </div>
-    <button type="submit" class="btn btn-primary" routerLink="/clinician">Submit</button>
+    <button type="submit" class="btn btn-primary" routerLink="{{profession}}">SUBMIT</button>
 
 
 </form>
